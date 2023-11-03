@@ -1,4 +1,4 @@
-package guru.sfg.beer.inventory.service.messageConsumers.model;
+package common.model;
 
 public enum BeerStyleEnum {
     LAGER, PILSNER, STOUT, GOSE ,PORTER ,ALE, WHEAT, IPA, PALE_ALE ,SAISON;

@@ -1,6 +1,6 @@
 package common.event;
 
-import guru.sfg.beer.inventory.service.messageConsumers.model.BeerDTO;
+import common.model.BeerDTO;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

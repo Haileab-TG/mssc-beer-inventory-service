@@ -1,4 +1,4 @@
-package guru.sfg.beer.inventory.service.messageConsumers.model;
+package common.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
