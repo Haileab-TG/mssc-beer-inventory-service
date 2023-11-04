@@ -5,10 +5,12 @@ import common.event.AllocateOrderResultEvent;
 import guru.sfg.beer.inventory.service.config.JmsConfig;
 import guru.sfg.beer.inventory.service.service.AllocationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class AllocateBeerOrderListener {
@@ -24,6 +26,7 @@ public class AllocateBeerOrderListener {
            isAllAllocated  = allocationService.allocateOrder(event.getBeerOrderDto());
         }catch (Exception e){
             allocationError = true;
+            log.debug("Allocation Error " + e);
         }
 
         AllocateOrderResultEvent resultEvent = AllocateOrderResultEvent.builder()
