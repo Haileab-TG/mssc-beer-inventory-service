@@ -1,6 +1,6 @@
-package guru.sfg.beer.inventory.service.messageConsumers;
+package guru.sfg.beer.inventory.service.jmsConsumer;
 
-import common.event.ValidateBeerOrderRequest;
+import common.event.ValidateBeerOrderRequestEvent;
 import common.event.ValidateOrderResultEvent;
 import common.model.BeerOrderLineDto;
 import guru.sfg.beer.inventory.service.config.JmsConfig;
@@ -20,7 +20,7 @@ public class ValidateBeerOrderListener {
     private final BeerInventoryRepository beerInventoryRepository;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_REQUEST_QUEUE)
-    public void validateBeerOrderListener(ValidateBeerOrderRequest event){
+    public void validateBeerOrderListener(ValidateBeerOrderRequestEvent event){
         boolean isValid = validateOrderLineByUPC(event.getBeerOrderDto().getBeerOrderLines());
         sendJmsMsg(
                 event.getBeerOrderDto().getId(),

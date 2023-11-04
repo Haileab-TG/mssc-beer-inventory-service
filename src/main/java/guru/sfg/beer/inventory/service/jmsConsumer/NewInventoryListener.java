@@ -1,4 +1,4 @@
-package guru.sfg.beer.inventory.service.messageConsumers;
+package guru.sfg.beer.inventory.service.jmsConsumer;
 
 import guru.sfg.beer.inventory.service.config.JmsConfig;
 import guru.sfg.beer.inventory.service.domain.BeerInventory;
@@ -6,13 +6,11 @@ import common.event.NewInventoryEvent;
 import guru.sfg.beer.inventory.service.repositories.BeerInventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class NewInventoryListener {
-    private final JmsTemplate jmsClient;
     private final BeerInventoryRepository beerInventoryRepository;
 
     @JmsListener(destination = JmsConfig.NEW_INVENTORY_QUEUE)

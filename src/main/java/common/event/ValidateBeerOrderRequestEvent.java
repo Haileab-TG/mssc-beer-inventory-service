@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ValidateBeerOrderRequest extends BeerOrderEvent{
+public class ValidateBeerOrderRequestEvent extends BeerOrderEvent{
 }
