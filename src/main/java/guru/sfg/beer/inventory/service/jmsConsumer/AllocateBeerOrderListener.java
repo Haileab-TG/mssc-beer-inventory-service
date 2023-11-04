@@ -17,11 +17,19 @@ public class AllocateBeerOrderListener {
 
     @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_REQUEST_QUEUE)
     public void listener(AllocateOrderRequestEvent event){
-       Boolean isAllAllocated = allocationService.allocateOrder(event.getBeerOrderDto());
+        Boolean isAllAllocated = false;
+        Boolean allocationError = false;
+
+        try{
+           isAllAllocated  = allocationService.allocateOrder(event.getBeerOrderDto());
+        }catch (Exception e){
+            allocationError = true;
+        }
+
         AllocateOrderResultEvent resultEvent = AllocateOrderResultEvent.builder()
                 .beerOrderDto(event.getBeerOrderDto())
                 .pendingInventory(!isAllAllocated)
-                .allocationError(false)
+                .allocationError(allocationError)
                 .build();
         jmsClient.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE, resultEvent);
     }
