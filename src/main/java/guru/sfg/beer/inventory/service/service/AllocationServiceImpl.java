@@ -2,6 +2,7 @@ package guru.sfg.beer.inventory.service.service;
 
 import common.model.BeerOrderDto;
 import common.model.BeerOrderLineDto;
+import guru.sfg.beer.inventory.service.domain.BeerInventory;
 import guru.sfg.beer.inventory.service.repositories.BeerInventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,17 @@ public class AllocationServiceImpl implements AllocationService {
         });
 
         return totalOrder.get() == totalAllocatedOrder.get();
+    }
+
+    @Override
+    public void deallocateOrder(BeerOrderDto beerOrderDto) {
+        beerOrderDto.getBeerOrderLines().forEach(line -> {
+            BeerInventory beerInventory = BeerInventory.builder()
+                    .beerId(line.getBeerId())
+                    .quantityOnHand(line.getOrderQuantity())
+                    .build();
+            beerInventoryRepository.save(beerInventory);
+        });
     }
 
     private void allocateOrderLine(BeerOrderLineDto orderLine, Integer orderQty, Integer allocatedQty) {
